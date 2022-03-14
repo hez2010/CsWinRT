@@ -1,0 +1,25 @@
+stages:
+- stage: LocalizeStrings
+  displayName: Call TDBuild to Localize Resources
+  jobs:
+  - job: Localize
+    pool: 
+      vmImage: windows-2019
+    timeoutInMinutes: 90
+    steps:
+    - checkout: self
+      persistCredentials: true
+
+    - task: TouchdownBuildTask@1
+      inputs:
+        environment: 'PRODEXT'
+        teamId: CSharpWinRT
+        authType: 'OAuth'
+        authId: $(TdBuildAuthID)
+        authKey: $(TdBuildToken)
+        localizationTarget: true
+        isPreview: false
+        resourceFilePath: ${{ parameters.ResourceFilePath }}
+        appendRelativeDir: true
+        cultureMappingType: 'None'
+        gitAction: ${{ parameters.GitAction }}
