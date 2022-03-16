@@ -8,18 +8,34 @@ stages:
     timeoutInMinutes: 90
     steps:
     - checkout: self
+      clean: true
       persistCredentials: true
+
+    # This is needed to avoid credentials errors for later in the TDBuild Task
+    - script: |
+      git config --global user.email "DoNotEmailThis@dev.null.microsoft.com"
+      git config --global user.name "TDBuild"
+
+    # Download x64
+    - task: DownloadBuildArtifacts@0
+      displayName: Download x64
+      inputs:
+        artifactName: release_x64
+        itemPattern: ''
+        downloadPath: $(Build.SourcesDirectory)
+        extractTars: false
 
     - task: TouchdownBuildTask@1
       inputs:
         environment: 'PRODEXT'
-        teamId: CSharpWinRT
+        teamId: $(CsWinRTTDBuildTeamID)
         authType: 'OAuth'
-        authId: $(TdBuildAuthID)
-        authKey: $(TdBuildToken)
+        authId: $(CsWinRTTDBuildAuthID)
+        authKey: $(CsWinRTTDBuildAuthKey)
         localizationTarget: true
         isPreview: false
-        resourceFilePath: ${{ parameters.ResourceFilePath }}
+        resourceFilePath: |
+
         appendRelativeDir: true
         cultureMappingType: 'None'
-        gitAction: ${{ parameters.GitAction }}
+        gitAction: NONE
