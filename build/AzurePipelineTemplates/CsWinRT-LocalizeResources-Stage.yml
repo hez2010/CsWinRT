@@ -25,6 +25,15 @@ stages:
         downloadPath: $(Build.SourcesDirectory)
         extractTars: false
 
+    # Download RESX
+    - task: DownloadBuildArtifacts@0
+      displayName: Download ResX
+      inputs:
+        artifactName: ResX
+        itemPattern: ''
+        downloadPath: $(Build.SourcesDirectory)
+        extractTars: false
+
     - task: TouchdownBuildTask@1
       inputs:
         environment: 'PRODEXT'
@@ -35,7 +44,9 @@ stages:
         localizationTarget: true
         isPreview: false
         resourceFilePath: |
-
+          $(Build.SourcesDirectory)\release_x64\WinRT.Host.dll.mui
+          $(Build.SourcesDirectory)\ResX\WinRT.SourceGenerator\CsWinRTDiagnosticStrings.resx
+          $(Build.SourcesDirectory)\ResX\WinRT.Runtime\WinRTRuntimeErrorStrings.resx
         appendRelativeDir: true
         cultureMappingType: 'None'
         gitAction: NONE

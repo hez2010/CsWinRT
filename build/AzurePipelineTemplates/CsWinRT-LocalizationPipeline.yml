@@ -2,9 +2,9 @@ name: $(BuildDefinitionName)_$(date:yyMMdd)$(rev:.r)
 
 variables:
 - group: CsWinRT-TouchdownBuild-Secrets
+- template: CsWinRT-Variables.yml
 
 stages:
-# TODO: new yml that just builds x64?
 - template: CsWinRT-BuildAndTest-Stage.yml
 
 - template: CsWinRT-LocalizeResources-Stage.yml
