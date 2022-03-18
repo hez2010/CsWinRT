@@ -1,4 +1,4 @@
-name: $(BuildDefinitionName)_$(date:yyMMdd)$(rev:.r)
+name: $(MajorVersion).$(MinorVersion).$(PatchVersion)$(PrereleaseVersion).$(date:yyMMdd)$(rev:.r)
 
 variables:
 - template: CsWinRT-Variables.yml
