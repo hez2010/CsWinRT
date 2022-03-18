@@ -13,8 +13,8 @@ stages:
 
     # This is needed to avoid credentials errors for later in the TDBuild Task
     - script: |
-      git config --global user.email "DoNotEmailThis@dev.null.microsoft.com"
-      git config --global user.name "TDBuild"
+        git config --global user.email "DoNotEmailThis@dev.null.microsoft.com"
+        git config --global user.name "TDBuild"
 
     # Download x64
     - task: DownloadBuildArtifacts@0
