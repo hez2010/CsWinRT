@@ -1,8 +1,8 @@
 name: $(BuildDefinitionName)_$(date:yyMMdd)$(rev:.r)
 
 variables:
-- group: CsWinRT-TouchdownBuild-Secrets
 - template: CsWinRT-Variables.yml
+- group: CsWinRT-TouchdownBuild-Secrets
 
 stages:
 - template: CsWinRT-BuildAndTest-Stage.yml
