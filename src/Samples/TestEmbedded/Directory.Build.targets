@@ -1,2 +1,178 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import 
+    Condition="'$(MSBuildProjectExtension)' == '.csproj' and '$(SimulateCsWinRTNugetReference)' == 'true'" 
+    Project="$([MSBuild]::GetPathOfFileAbove('Microsoft.Windows.CsWinRT.targets', '$(MSBuildThisFileDirectory)../../../nuget'))" />
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.targets', '$(MSBuildThisFileDirectory)../../'))" />
+
+  <!-- CsWinRTCheckDependencies is also defined in the src/ targets file, and prevents issues when using TestWinRT.
+       We skip the check here because we need the targets but aren't using TestWinRT.
+  -->
+  <Target Name="CsWinRTCheckDependencies" />
+
+   <!-- attempt 2,   -->
+ 
+  <!-- We overwrite the targets from Microsoft.Windows.CsWinRT.Embedded.targets
+       They copy WinRT.Runtime sources based on the target platform; the filenames designate what platform they're for. -->
+ 
+  <Target Name="CsWinRTAddEmbeddedRuntime_AnySources"
+          AfterTargets="CsWinRTGenerateProjection"
+          BeforeTargets="CsWinRTIncludeProjection"> 
+  
+    <Message Text="$(WinRTRuntimeSourcesDir)" />
+
+    <PropertyGroup>
+      <EmbeddedAnyFiles>
+        $(WinRTRuntimeSourcesDir)TypeNameSupport.cs;
+        $(WinRTRuntimeSourcesDir)TypeExtensions.cs;
+        $(WinRTRuntimeSourcesDir)Projections.cs;
+        $(WinRTRuntimeSourcesDir)ObjectReference.cs;
+        $(WinRTRuntimeSourcesDir)MonoSupport.cs;
+        $(WinRTRuntimeSourcesDir)Module.cs;
+        $(WinRTRuntimeSourcesDir)Marshalers.cs;
+        $(WinRTRuntimeSourcesDir)IInspectable.cs;
+        $(WinRTRuntimeSourcesDir)GuidGenerator.cs;
+        $(WinRTRuntimeSourcesDir)FundamentalMarshalers.cs;
+        $(WinRTRuntimeSourcesDir)ExceptionHelpers.cs;
+        $(WinRTRuntimeSourcesDir)EventRegistrationToken.cs;
+        $(WinRTRuntimeSourcesDir)DerivedComposed.cs;
+        $(WinRTRuntimeSourcesDir)Context.cs;
+        $(WinRTRuntimeSourcesDir)ComWrappersSupport.cs;
+        $(WinRTRuntimeSourcesDir)CastExtensions.cs;
+        $(WinRTRuntimeSourcesDir)Attributes.cs;
+        $(WinRTRuntimeSourcesDir)AgileReference.cs;
+        $(WinRTRuntimeSourcesDir)Projections\EventHandler.cs;
+        $(WinRTRuntimeSourcesDir)Projections\Geometry.cs;
+        $(WinRTRuntimeSourcesDir)Projections\IStringable.cs;
+        $(WinRTRuntimeSourcesDir)Projections\KeyValuePair.cs;
+        $(WinRTRuntimeSourcesDir)Projections\NotifyCollectionChangedAction.cs;
+        $(WinRTRuntimeSourcesDir)Projections\NotifyCollectionChangedEventArgs.cs;
+        $(WinRTRuntimeSourcesDir)Projections\NotifyCollectionChangedEventHandler.cs;
+        $(WinRTRuntimeSourcesDir)Projections\Nullable.cs;
+        $(WinRTRuntimeSourcesDir)Projections\Numerics.cs;
+        $(WinRTRuntimeSourcesDir)Projections\PropertyChangedEventArgs.cs;
+        $(WinRTRuntimeSourcesDir)Projections\PropertyChangedEventHandler.cs;
+        $(WinRTRuntimeSourcesDir)Projections\SystemTypes.cs;
+        $(WinRTRuntimeSourcesDir)Projections\Type.cs;
+        $(WinRTRuntimeSourcesDir)Projections\Uri.cs;
+        $(WinRTRuntimeSourcesDir)Projections\DataErrorsChangedEventArgs.cs;
+        $(WinRTRuntimeSourcesDir)Interop\IReferenceTracker.cs;
+        $(WinRTRuntimeSourcesDir)Interop\IUnknownVftbl.cs;
+        $(WinRTRuntimeSourcesDir)Interop\StandardDelegates.cs;
+        $(WinRTRuntimeSourcesDir)Interop\ExceptionErrorInfo.cs;
+        $(WinRTRuntimeSourcesDir)Interop\IActivationFactory.cs;
+        $(WinRTRuntimeSourcesDir)Interop\IContextCallback.cs;
+        $(WinRTRuntimeSourcesDir)Interop\IMarshal.cs;
+      </EmbeddedAnyFiles>
+    </PropertyGroup>
+    
+    
+    <ItemGroup>
+      <CsWinRTEmbeddedSourcesAny Remove="@(CsWinRTEmbeddedSourcesAny)" />
+      <CsWinRTEmbeddedSourcesAny Include="$(EmbeddedAnyFiles)" />
+    </ItemGroup>
+    
+    <Message Importance="high" Text="%(CsWinRTEmbeddedSourcesAny.FileName)" />
+
+    <Copy SourceFiles="@(CsWinRTEmbeddedSourcesAny)"
+          DestinationFolder="$(CsWinRTGeneratedFilesDir)"
+          UseHardlinksIfPossible="false"
+          SkipUnchangedFiles="true"/>
+  </Target>
+
+
+  
+  
+  <!-- Any Platform (Version 0, erroneous, doesn't exclude files properly)
+  -->
+  <!-- 
+  <Target Name="CsWinRTAddEmbeddedRuntime_AnySources_v0"
+          AfterTargets="CsWinRTGenerateProjection"
+          BeforeTargets="CsWinRTIncludeProjection"> 
+  
+    <Message Text="$(WinRTRuntimeSourcesDir)" />
+    
+    <ItemGroup>
+      <CsWinRTEmbeddedSourcesAny Remove="@(CsWinRTEmbeddedSourcesAny)" />
+      <CsWinRTEmbeddedSourcesAny Include="$(WinRTRuntimeSourcesDir)*.cs" />
+      <CsWinRTEmbeddedSourcesAny Include="$(WinRTRuntimeSourcesDir)Projections\*.cs" />
+      <CsWinRTEmbeddedSourcesAny Include="$(WinRTRuntimeSourcesDir)Interop\*.cs" />
+-->
+      <!-- Don't copy files that have "net5.0" or "netstandard2.0" in the name -->
+  <!--
+      <CsWinRTEmbeddedSourcesAny Condition="$([System.String]::Copy('%(AnyPlatformSources.FileName)').Contains('net5'))" Remove="@(AnyPlatformSources)" />
+      <CsWinRTEmbeddedSourcesAny Condition="$([System.String]::Copy('%(AnyPlatformSources.Filename)').Contains('netstandard2.0'))" Remove="@(AnyPlatformSources)" />
+-->
+      <!-- the issue is that the filter isnt working -->
+<!-- 
+  </ItemGroup>
+    
+    <Message Importance="high" Text="%(CsWinRTEmbeddedSourcesAny.FileName)" />
+
+    <Copy SourceFiles="@(CsWinRTEmbeddedSourcesAny)"
+          DestinationFolder="$(CsWinRTGeneratedFilesDir)"
+          UseHardlinksIfPossible="false"
+          SkipUnchangedFiles="true"/>
+  </Target>
+  -->
+
+   <!--  NetStandard 2.0
+  -->
+  <Target Name="CsWinRTAddEmbeddedRuntime_Net2Sources"
+          Condition="'$(CsWinRTEmbeddedTFMNet5OrGreater)' != 'true'"
+          AfterTargets="CsWinRTGenerateProjection"
+          BeforeTargets="CsWinRTIncludeProjection">
+    
+    <ItemGroup>
+      <NetStandardSources Include="$(WinRTRuntimeSourcesDir)**\*netstandard2.0.cs" />
+      <CsWinRTEmbeddedSourcesNet2 Include="@(NetStandardSources)" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(CsWinRTEmbeddedSourcesNet2)"
+          DestinationFolder="$(CsWinRTGeneratedFilesDir)"
+          UseHardlinksIfPossible="false"
+          SkipUnchangedFiles="true"/>
+  </Target>
+
+   <!--  Net 5.0
+  -->
+  <Target Name="CsWinRTAddEmbeddedRuntime_Net5Sources"
+          Condition="'$(CsWinRTEmbeddedTFMNet5OrGreater)' == 'true'"
+          AfterTargets="CsWinRTGenerateProjection"
+          BeforeTargets="CsWinRTIncludeProjection">
+ 
+    <ItemGroup>
+      <Net5Sources Include="$(WinRTRuntimeSourcesDir)**\*net5.0.cs" />
+      <CsWinRTEmbeddedSourcesNet5 Include="@(Net5Sources)" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(CsWinRTEmbeddedSourcesNet5)"
+          DestinationFolder="$(CsWinRTGeneratedFilesDir)"
+          UseHardlinksIfPossible="false"
+          SkipUnchangedFiles="true"/> 
+  </Target>
+
+  <Target Name="RemoveWinRTRuntimeReference" />
+ 
+  
+  <!-- attempt 1... 
+  <ItemGroup Condition="'$(SimulateCsWinRTNugetReference)' == 'true'">
+
+    <AllEmbeddedSources Include="$(MSBuildThisFileDirectory)..\..\WinRT.Runtime\**\*.cs" />
+    <AllButNet5 Remove="@(AllEmbeddedSources)" Condition="'%(AllEmbeddedSources.Filename)' == '*.net5'" />
+    
+    
+    <CsWinRTEmbeddedSourcesAny Remove="@(CsWinRTEmbeddedSourcesAny)"/>
+    <CsWinRTEmbeddedSourcesAny Include="$(MSBuildThisFileDirectory)..\..\WinRT.Runtime\**\*.cs"/>
+
+    <CsWinRTEmbeddedSourcesNet5 Remove="@(CsWinRTEmbeddedSourcesNet5)"/>
+    <CsWinRTEmbeddedSourcesAny Include="$(MSBuildThisFileDirectory)..\..\WinRT.Runtime\**\*.cs"/>
+    
+    <CsWinRTEmbeddedSourcesNet2 Remove="@(CsWinRTEmbeddedSourcesNet2)"/>
+    <CsWinRTEmbeddedSourcesAny Include="$(MSBuildThisFileDirectory)..\..\WinRT.Runtime\**\*.cs"/>
+    
+  </ItemGroup>
+  -->
+  
 </Project>
