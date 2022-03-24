@@ -10,10 +10,12 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Alpha.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="PointCalculator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Alpha.h" />
+    <ClInclude Include="PointCalculator.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Alpha.idl" />

@@ -10,4 +10,11 @@ namespace Alpha
     {
         Int32 Five();
     }
+
+    runtimeclass PointCalculator
+    {
+        PointCalculator();
+        Windows.Foundation.Point Flip(Windows.Foundation.Point px);
+        Double Add(Windows.Foundation.Point px, Windows.Foundation.Point py);
+    }
 }

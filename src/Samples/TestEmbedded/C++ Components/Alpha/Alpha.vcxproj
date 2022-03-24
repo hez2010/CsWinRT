@@ -120,6 +120,7 @@
     <ClInclude Include="Alpha.h">
       <DependentUpon>Alpha.idl</DependentUpon>
     </ClInclude>
+    <ClInclude Include="PointCalculator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -129,6 +130,7 @@
       <DependentUpon>Alpha.idl</DependentUpon>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="PointCalculator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Alpha.idl" />
