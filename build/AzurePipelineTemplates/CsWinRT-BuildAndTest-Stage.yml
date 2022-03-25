@@ -183,7 +183,7 @@ stages:
       continueOnError: true
       inputs:
         command: restore
-        projects: $(TestEmbeddedSolution)
+        projects: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
         buildProperties: 'platform=$(BuildPlatform);configuration=$(BuildConfiguration)'
 
     - task: NuGetToolInstaller@1
@@ -193,13 +193,13 @@ stages:
 
     - task: NuGetCommand@2
       inputs:
-        restoreSolution: $(TestEmbeddedSolution)
+        restoreSolution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln # $(TestEmbeddedSolution)
 
 # Build Embedded Sample and Unit Tests
     - task: MSBuild@1
       displayName: Build Embedded Sample and Unit tests
       inputs:
-        solution: $(TestEmbeddedSolution)
+        solution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln # $(TestEmbeddedSolution)
         platform: $(BuildPlatform)
         configuration: $(BuildConfiguration)
         logProjectEvents: true
