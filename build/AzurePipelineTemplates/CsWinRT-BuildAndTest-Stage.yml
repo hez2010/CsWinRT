@@ -173,6 +173,13 @@ stages:
           set cswinrt_build_params=/bl:$(Build.SourcesDirectory)\cswinrt.binlog /p:CleanIntermediateDirs=true /p:AllowedReferenceRelatedFileExtensions=".xml;.pri;.dll.config;.exe.config"
           build.cmd $(BuildPlatform) $(BuildConfiguration) $(VersionNumber) $(Build.BuildNumber) $(WinRT.Runtime.AssemblyVersion) 
 
+# Restore NuGet Packages for TestEmbedded solution
+    - task: DotNetCoreCLI@2
+      displayName: dotnet restore
+      inputs:
+        command: restore
+        projects: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
+
 # Build Embedded Sample and Unit Tests
     - task: MSBuild@1
       displayName: Build Embedded Sample and Unit tests
@@ -180,7 +187,6 @@ stages:
         solution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
         platform: $(BuildPlatform)
         configuration: $(BuildConfiguration)
-        restoreNugetPackages: true
         logProjectEvents: true
         createLogFile: true
         logFileVerbosity: 'diagnostic' # Options: quiet, minimal, normal, detailed, diagnostic
