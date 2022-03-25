@@ -1,7 +1,3 @@
-variables:
-  name: TestEmbeddedSolution
-  value: '$(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln'
-
 stages:
 - stage: BuildAndTest
   displayName: Build/Test Stage
@@ -32,6 +28,10 @@ stages:
         arm64_Release:
           BuildPlatform: 'arm64'
           BuildConfiguration: 'release' 
+
+    variables: 
+      name: TestEmbeddedSolution
+      value: '$(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln'
 
     steps:
     - checkout: self
