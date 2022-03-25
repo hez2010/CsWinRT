@@ -4,7 +4,9 @@
     <TargetFrameworks>netcoreapp2.0;net5.0;net6.0</TargetFrameworks>
     <Platforms>x64;x86</Platforms>
     <IsPackable>false</IsPackable>
+    <SimulateCsWinRTNugetReference>true</SimulateCsWinRTNugetReference>
     <LangVersion>9</LangVersion>
+    <CsWinRTEnabled>false</CsWinRTEnabled>
     <CsWinRTGenerateProjection>false</CsWinRTGenerateProjection>
   </PropertyGroup>
 

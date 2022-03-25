@@ -17,10 +17,13 @@
        They copy WinRT.Runtime sources based on the target platform; the filenames designate what platform they're for. -->
  
   <Target Name="CsWinRTAddEmbeddedRuntime_AnySources"
+          Condition="'$(CsWinRTEmbedded)' == 'true'"
+          DependsOnTargets="CsWinRTPrepareProjection"
           AfterTargets="CsWinRTGenerateProjection"
           BeforeTargets="CsWinRTIncludeProjection"> 
   
-    <Message Text="$(WinRTRuntimeSourcesDir)" />
+    <Message Importance="high" Text="$(WinRTRuntimeSourcesDir)" />
+    <Message Importance="high" Text="$(CsWinRTEmbeddedTFMNet5OrGreater)" />
 
     <PropertyGroup>
       <EmbeddedAnyFiles>
@@ -81,46 +84,11 @@
           SkipUnchangedFiles="true"/>
   </Target>
 
-
-  
-  
-  <!-- Any Platform (Version 0, erroneous, doesn't exclude files properly)
-  -->
-  <!-- 
-  <Target Name="CsWinRTAddEmbeddedRuntime_AnySources_v0"
-          AfterTargets="CsWinRTGenerateProjection"
-          BeforeTargets="CsWinRTIncludeProjection"> 
-  
-    <Message Text="$(WinRTRuntimeSourcesDir)" />
-    
-    <ItemGroup>
-      <CsWinRTEmbeddedSourcesAny Remove="@(CsWinRTEmbeddedSourcesAny)" />
-      <CsWinRTEmbeddedSourcesAny Include="$(WinRTRuntimeSourcesDir)*.cs" />
-      <CsWinRTEmbeddedSourcesAny Include="$(WinRTRuntimeSourcesDir)Projections\*.cs" />
-      <CsWinRTEmbeddedSourcesAny Include="$(WinRTRuntimeSourcesDir)Interop\*.cs" />
--->
-      <!-- Don't copy files that have "net5.0" or "netstandard2.0" in the name -->
-  <!--
-      <CsWinRTEmbeddedSourcesAny Condition="$([System.String]::Copy('%(AnyPlatformSources.FileName)').Contains('net5'))" Remove="@(AnyPlatformSources)" />
-      <CsWinRTEmbeddedSourcesAny Condition="$([System.String]::Copy('%(AnyPlatformSources.Filename)').Contains('netstandard2.0'))" Remove="@(AnyPlatformSources)" />
--->
-      <!-- the issue is that the filter isnt working -->
-<!-- 
-  </ItemGroup>
-    
-    <Message Importance="high" Text="%(CsWinRTEmbeddedSourcesAny.FileName)" />
-
-    <Copy SourceFiles="@(CsWinRTEmbeddedSourcesAny)"
-          DestinationFolder="$(CsWinRTGeneratedFilesDir)"
-          UseHardlinksIfPossible="false"
-          SkipUnchangedFiles="true"/>
-  </Target>
-  -->
-
    <!--  NetStandard 2.0
   -->
   <Target Name="CsWinRTAddEmbeddedRuntime_Net2Sources"
-          Condition="'$(CsWinRTEmbeddedTFMNet5OrGreater)' != 'true'"
+          Condition="'$(CsWinRTEmbeddedTFMNet5OrGreater)' != 'true' and '$(CsWinRTEmbedded)' == 'true'"
+          DependsOnTargets="CsWinRTPrepareProjection"
           AfterTargets="CsWinRTGenerateProjection"
           BeforeTargets="CsWinRTIncludeProjection">
     
@@ -138,12 +106,13 @@
    <!--  Net 5.0
   -->
   <Target Name="CsWinRTAddEmbeddedRuntime_Net5Sources"
-          Condition="'$(CsWinRTEmbeddedTFMNet5OrGreater)' == 'true'"
+          Condition="'$(CsWinRTEmbeddedTFMNet5OrGreater)' == 'true' and '$(CsWinRTEmbedded)' == 'true'"
+          DependsOnTargets="CsWinRTPrepareProjection"
           AfterTargets="CsWinRTGenerateProjection"
           BeforeTargets="CsWinRTIncludeProjection">
  
     <ItemGroup>
-      <Net5Sources Include="$(WinRTRuntimeSourcesDir)**\*net5.0.cs" />
+      <Net5Sources Include="$(WinRTRuntimeSourcesDir)**\*net5.cs" />
       <CsWinRTEmbeddedSourcesNet5 Include="@(Net5Sources)" />
     </ItemGroup>
 

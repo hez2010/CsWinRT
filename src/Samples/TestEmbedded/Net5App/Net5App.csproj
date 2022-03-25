@@ -3,14 +3,9 @@
     <OutputType>Exe</OutputType>
     <Platforms>x64;x86;ARM64</Platforms>
     <TargetFramework>net5.0-windows</TargetFramework>
+    <SimulateCsWinRTNugetReference>true</SimulateCsWinRTNugetReference>
     <CsWinRTWindowsMetadata>sdk</CsWinRTWindowsMetadata>
   </PropertyGroup>
-
-<!-- CsWinRT reference needed for the target that blocks NETSDK1130 for the C++/WinRT components 
-             (transitive project reference asset) -->
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.6.1" IncludeAssets="build" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TestEmbeddedLibrary\TestEmbeddedLibrary.csproj" />
