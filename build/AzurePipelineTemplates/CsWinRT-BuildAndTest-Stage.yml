@@ -174,22 +174,22 @@ stages:
           build.cmd $(BuildPlatform) $(BuildConfiguration) $(VersionNumber) $(Build.BuildNumber) $(WinRT.Runtime.AssemblyVersion) 
 
 # Restore NuGet Packages for TestEmbedded solution
-    - task: DotNetCoreCLI@2
-      displayName: dotnet restore
-      continueOnError: true
-      inputs:
-        command: restore
-        projects: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
-        buildProperties: 'platform=$(BuildPlatform);configuration=$(BuildConfiguration)'
-
-    - task: NuGetToolInstaller@1
-      displayName: Use NuGet 5.3
-      inputs:
-        versionSpec: 5.3
-
-    - task: NuGetCommand@2
-      inputs:
-        restoreSolution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
+#    - task: DotNetCoreCLI@2
+#      displayName: dotnet restore
+#      continueOnError: true
+#      inputs:
+#        command: restore
+#        projects: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
+#        buildProperties: 'platform=$(BuildPlatform);configuration=$(BuildConfiguration)'
+#
+#    - task: NuGetToolInstaller@1
+#      displayName: Use NuGet 5.3
+#      inputs:
+#        versionSpec: 5.3
+#
+#    - task: NuGetCommand@2
+#      inputs:
+#        restoreSolution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
 
 # Build Embedded Sample and Unit Tests
     - task: MSBuild@1
