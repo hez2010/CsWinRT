@@ -205,6 +205,7 @@ stages:
         logProjectEvents: true
         createLogFile: true
         logFileVerbosity: 'diagnostic' # Options: quiet, minimal, normal, detailed, diagnostic
+        msbuildArguments: 't=restore'
         #msbuildArguments: 'AllowedReferenceRelatedFileExtensions=".xml;.pri;.dll.config;.exe.config"'
 
 # Component Detection
