@@ -59,7 +59,7 @@ stages:
       condition: succeeded()
       inputs:
         SourceFolder: $(LocOutputDir)
-        TargetFolder: $(Build.ArtificatStagingDirectory)\loc
+        TargetFolder: $(Build.ArtifactStagingDirectory)\loc
 
     # Publish Net5.0
     - task: PublishBuildArtifacts@1
