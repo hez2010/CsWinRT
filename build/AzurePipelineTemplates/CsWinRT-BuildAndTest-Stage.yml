@@ -29,10 +29,6 @@ stages:
           BuildPlatform: 'arm64'
           BuildConfiguration: 'release' 
 
-    variables: 
-      name: TestEmbeddedSolution
-      value: '$(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln'
-
     steps:
     - checkout: self
       clean: true
@@ -193,19 +189,19 @@ stages:
 
     - task: NuGetCommand@2
       inputs:
-        restoreSolution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln # $(TestEmbeddedSolution)
+        restoreSolution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
 
 # Build Embedded Sample and Unit Tests
     - task: MSBuild@1
       displayName: Build Embedded Sample and Unit tests
       inputs:
-        solution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln # $(TestEmbeddedSolution)
+        solution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
         platform: $(BuildPlatform)
         configuration: $(BuildConfiguration)
         logProjectEvents: true
         createLogFile: true
         logFileVerbosity: 'diagnostic' # Options: quiet, minimal, normal, detailed, diagnostic
-        msbuildArguments: 't=restore'
+        msbuildArguments: /restore
         #msbuildArguments: 'AllowedReferenceRelatedFileExtensions=".xml;.pri;.dll.config;.exe.config"'
 
 # Component Detection
