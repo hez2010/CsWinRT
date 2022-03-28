@@ -191,6 +191,19 @@ stages:
 #      inputs:
 #        restoreSolution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\TestEmbedded.sln
 
+# Build Embedded Sample WinRT Components
+    - task: MSBuild@1
+      displayName: Build Embedded Sample and Unit tests
+      inputs:
+        solution: $(Build.SourcesDirectory)\src\Samples\C++ Components\Beta.vcxproj
+        platform: $(BuildPlatform)
+        configuration: $(BuildConfiguration)
+        logProjectEvents: true
+        createLogFile: true
+        logFileVerbosity: 'diagnostic' # Options: quiet, minimal, normal, detailed, diagnostic
+        msbuildArguments: /restore
+ 
+
 # Build Embedded Sample and Unit Tests
     - task: MSBuild@1
       displayName: Build Embedded Sample and Unit tests
