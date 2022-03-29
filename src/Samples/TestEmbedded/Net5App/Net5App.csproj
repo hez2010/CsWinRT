@@ -3,33 +3,16 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <Platforms>x64;x86;ARM64</Platforms>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
     <!-- property to tell that there will be types to generate for private use -->
     <CsWinRTPrivateProjection>true</CsWinRTPrivateProjection>
     <!-- Generate public projections for some types -->
     <CsWinRTIncludes>
-      Gamma;
-      Windows.Foundation.Metadata;
-      Windows.Foundation.UniversalApiContract;
-      Windows.Foundation.IAsyncOperation;
-      Windows.Foundation.TypedEventHandler;
-      Windows.Foundation.UniversalApiContract;
-      Windows.Foundation.FoundationContract;
-      Windows.Foundation.IAsyncInfo;
-      Windows.Foundation.IAsyncAction;
-      Windows.Foundation.AsyncStatus;
-      Windows.Foundation.AsyncActionCompletedHandler;
-      Windows.Foundation.AsyncActionProgressHandler;
-      Windows.Foundation.AsyncActionWithProgressCompletedHandler;
-      Windows.Foundation.AsyncOperationProgressHandler;
-      Windows.Foundation.AsyncOperationCompletedHandler;
-      Windows.Foundation.AsyncOperationWithProgressCompletedHandler;
-    </CsWinRTIncludes>
-    <!-- BTW, just Windows.Foundation uses Storage and System-->
-    <CsWinRTIncludesPrivate>
       Alpha;
+      Gamma;
+    </CsWinRTIncludes>
+    <CsWinRTIncludesPrivate>
       Beta;
-      Windows.Devices.Geolocation;
     </CsWinRTIncludesPrivate>
   </PropertyGroup>
 

@@ -24,6 +24,7 @@ namespace UseTestLib
             Console.WriteLine("Expect 5, Got " + testLib.Test4());
 
             testLib.Test5();
+            testLib.Test6();
         }
     }
 
@@ -78,8 +79,8 @@ namespace UseTestLib
         public int Test4()
         {
             QIAgent qiAgent = GetQIAgent();
-            var x = qiAgent.IdentityAlpha(new MyAlpha());
-            return qiAgent.Run(x);
+            //var x = qiAgent.IdentityAlpha(new MyAlpha());
+            return qiAgent.Run(new MyAlpha());
         }
 
         async System.Threading.Tasks.Task CallGeoAsyncApi()
@@ -96,6 +97,18 @@ namespace UseTestLib
         public void Test5()
         {
             CallGeoAsyncApi().Wait(1000);
+        }
+
+        // Embedded projection using global types
+        public void Test6()
+        {
+            QIAgent qiAgent = new();
+            Windows.Foundation.Point p1 = qiAgent.ReturnsPoint();
+            Windows.Foundation.Point p2 = new(100, 100);
+            Console.WriteLine("p1 == p2 ? " + (p1 == p2));
+            Console.WriteLine("p1 == p2 ? " + p1.Equals(p2));
+            Console.WriteLine("p1.X == 100 ? " + p1.X);
+            Console.WriteLine("p1.Y == 100 ? " + p1.Y);
         }
     }
 

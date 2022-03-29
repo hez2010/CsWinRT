@@ -8,7 +8,8 @@ namespace winrt::Beta::implementation
         QIAgent() = default;
 
         bool CheckForIGamma(winrt::Alpha::IAlpha const& alpha);
-        winrt::Alpha::IAlpha IdentityAlpha(winrt::Alpha::IAlpha const& alpha);
+        Windows::Foundation::Point ReturnsPoint();
+        // winrt::Alpha::IAlpha IdentityAlpha(winrt::Alpha::IAlpha const& alpha);
         int32_t Run(winrt::Alpha::IAlpha const& alpha);
     };
 }

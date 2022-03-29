@@ -10,7 +10,8 @@ namespace Beta
     {
         QIAgent();
         Boolean CheckForIGamma(Alpha.IAlpha alpha);
-        Alpha.IAlpha IdentityAlpha(Alpha.IAlpha alpha);
+        //Alpha.IAlpha IdentityAlpha(Alpha.IAlpha alpha);
+        Windows.Foundation.Point ReturnsPoint();
         Int32 Run(Alpha.IAlpha alpha);
     }
 
