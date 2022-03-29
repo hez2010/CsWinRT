@@ -195,7 +195,7 @@ stages:
     - task: MSBuild@1
       displayName: Build Embedded Sample and Unit tests
       inputs:
-        solution: $(Build.SourcesDirectory)\src\Samples\C++ Components\Beta.vcxproj
+        solution: $(Build.SourcesDirectory)\src\Samples\TestEmbedded\C++ Components\Beta.vcxproj
         platform: $(BuildPlatform)
         configuration: $(BuildConfiguration)
         logProjectEvents: true
