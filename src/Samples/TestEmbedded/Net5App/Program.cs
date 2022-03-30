@@ -103,12 +103,9 @@ namespace UseTestLib
         public void Test6()
         {
             QIAgent qiAgent = new();
-            Windows.Foundation.Point p1 = qiAgent.ReturnsPoint();
-            Windows.Foundation.Point p2 = new(100, 100);
-            Console.WriteLine("p1 == p2 ? " + (p1 == p2));
-            Console.WriteLine("p1 == p2 ? " + p1.Equals(p2));
-            Console.WriteLine("p1.X == 100 ? " + p1.X);
-            Console.WriteLine("p1.Y == 100 ? " + p1.Y);
+            Windows.Media.AudioFrame audioFrame = qiAgent.ReturnsAudioFrame();
+            Windows.Media.AudioBuffer buf = audioFrame.LockBuffer(Windows.Media.AudioBufferAccessMode.Read);
+            Console.WriteLine("capactiy should be 20, got " + buf.Capacity);
         }
     }
 

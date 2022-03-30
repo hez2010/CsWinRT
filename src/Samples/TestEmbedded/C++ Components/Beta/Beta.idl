@@ -11,7 +11,7 @@ namespace Beta
         QIAgent();
         Boolean CheckForIGamma(Alpha.IAlpha alpha);
         //Alpha.IAlpha IdentityAlpha(Alpha.IAlpha alpha);
-        Windows.Foundation.Point ReturnsPoint();
+        Windows.Media.AudioFrame ReturnsAudioFrame();
         Int32 Run(Alpha.IAlpha alpha);
     }
 

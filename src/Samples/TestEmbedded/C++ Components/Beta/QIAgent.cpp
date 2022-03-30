@@ -9,9 +9,10 @@ namespace winrt::Beta::implementation
         return alpha.try_as<winrt::Gamma::IGamma>() ? true : false;
     }
 
-    Windows::Foundation::Point QIAgent::ReturnsPoint()
+    Windows::Media::AudioFrame QIAgent::ReturnsAudioFrame()
     {
-        return Windows::Foundation::Point(100, 100);
+        // make a buffer of 20 bytes
+        return Windows::Media::AudioFrame(20);
     }
 
 /*
