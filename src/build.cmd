@@ -150,11 +150,11 @@ if ErrorLevel 1 (
 )
 if "%cswinrt_build_only%"=="true" goto :eof
 
-:buildembedded
+
+:: :buildembedded
 echo Building embedded sample for %cswinrt_platform% %cswinrt_configuration%
 call :exec %nuget_dir%\nuget.exe restore %nuget_params% %this_dir%Samples\TestEmbedded\TestEmbedded.sln
-call :exec %msbuild_path%msbuild.exe %this_dir%\Samples\TestEmbedded\TestEmbedded.sln /t:restore /p:platform=%cswinrt_platform%;configuration=%cswinrt_configuration%
-call :exec %msbuild_path%msbuild.exe %this_dir%\Samples\TestEmbedded\TestEmbedded.sln /p:platform=%cswinrt_platform%;configuration=%cswinrt_configuration% /bl:embeddedsample.binlog
+call :exec %msbuild_path%msbuild.exe /p:platform=%build_platform%;configuration=%build_configuration% /bl:embeddedsample.binlog %this_dir%Samples\TestEmbedded\TestEmbedded.sln 
 if ErrorLevel 1 (
   echo.
   echo ERROR: Embedded build failed
@@ -183,9 +183,9 @@ if not exist %dotnet_exe% (
 :embeddedtests
 :: build the embedded sample and run the unittest 
 call :exec %dotnet_exe% test --verbosity normal --no-build --logger xunit;LogFilePath=%~dp0embedunittest_%cswinrt_version_string%.xml %this_dir%Samples/TestEmbedded/UnitTestEmbedded/UnitTestEmbedded.csproj /nologo /m /p:platform=%cswinrt_platform%;configuration=%cswinrt_configuration%
-if ErrorLevel 1 (
+if ErrorLevel 1 ( 
   echo.
-  echo ERROR: Embedded unit test failed, skipping NuGet pack
+  echo ERROR: Embedded unit test failed, exiting early
   exit /b !ErrorLevel!
 )
 
