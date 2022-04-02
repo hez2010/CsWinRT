@@ -204,6 +204,15 @@ stages:
         Contents: cswinrt.binlog
         TargetFolder: $(Build.ArtifactStagingDirectory)\binlog
 
+# Stage BinLog
+    - task: CopyFiles@2
+      displayName: Stage Embedded Sample BinLog
+      condition: always()
+      inputs:
+        SourceFolder: $(Build.SourcesDirectory)\src\Samples\TestEmbedded
+        Contents: embeddedsample.binlog
+        TargetFolder: $(Build.ArtifactStagingDirectory)\binlog
+
 # Publish BinLog
     - task: PublishBuildArtifacts@1
       displayName: Publish BinLog
