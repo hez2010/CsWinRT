@@ -124,24 +124,4 @@
 
   <Target Name="RemoveWinRTRuntimeReference" />
  
-  
-  <!-- attempt 1... 
-  <ItemGroup Condition="'$(SimulateCsWinRTNugetReference)' == 'true'">
-
-    <AllEmbeddedSources Include="$(MSBuildThisFileDirectory)..\..\WinRT.Runtime\**\*.cs" />
-    <AllButNet5 Remove="@(AllEmbeddedSources)" Condition="'%(AllEmbeddedSources.Filename)' == '*.net5'" />
-    
-    
-    <CsWinRTEmbeddedSourcesAny Remove="@(CsWinRTEmbeddedSourcesAny)"/>
-    <CsWinRTEmbeddedSourcesAny Include="$(MSBuildThisFileDirectory)..\..\WinRT.Runtime\**\*.cs"/>
-
-    <CsWinRTEmbeddedSourcesNet5 Remove="@(CsWinRTEmbeddedSourcesNet5)"/>
-    <CsWinRTEmbeddedSourcesAny Include="$(MSBuildThisFileDirectory)..\..\WinRT.Runtime\**\*.cs"/>
-    
-    <CsWinRTEmbeddedSourcesNet2 Remove="@(CsWinRTEmbeddedSourcesNet2)"/>
-    <CsWinRTEmbeddedSourcesAny Include="$(MSBuildThisFileDirectory)..\..\WinRT.Runtime\**\*.cs"/>
-    
-  </ItemGroup>
-  -->
-  
 </Project>
