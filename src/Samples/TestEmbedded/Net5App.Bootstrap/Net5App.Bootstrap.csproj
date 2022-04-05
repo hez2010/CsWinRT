@@ -29,21 +29,16 @@
       Alpha;
       Beta;
       Gamma;
-      Windows.Devices.Geolocation;
-      Windows.Foundation.Metadata
-      Windows.Foundation.UniversalApiContract;
-      Windows.Foundation.IAsyncOperation;
-      Windows.Foundation.TypedEventHandler;
-      Windows.Foundation.FoundationContract;
-      Windows.Foundation.IAsyncInfo;
-      Windows.Foundation.IAsyncAction;
-      Windows.Foundation.AsyncStatus;
-      Windows.Foundation.AsyncActionCompletedHandler;
-      Windows.Foundation.AsyncActionProgressHandler;
-      Windows.Foundation.AsyncActionWithProgressCompletedHandler;
-      Windows.Foundation.AsyncOperationProgressHandler;
-      Windows.Foundation.AsyncOperationCompletedHandler;
-      Windows.Foundation.AsyncOperationWithProgressCompletedHandler;
+      Windows.Media.AudioFrame;
+      Windows.Media.AudioBuffer;
+      Windows.Media.IAudioBuffer;
+      Windows.Media.IMediaFrame;
+      Windows.Media.IAudioFrame;
+      Windows.Foundation;
     </CsWinRTIncludes>
+    <CsWinRTExcludes>
+      Windows.Foundation.Diagnostics;
+      Windows.Foundation.PropertyType;
+    </CsWinRTExcludes>
   </PropertyGroup>
 </Project>
