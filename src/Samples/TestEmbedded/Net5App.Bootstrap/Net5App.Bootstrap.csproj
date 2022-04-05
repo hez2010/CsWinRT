@@ -10,6 +10,7 @@
     <SimulateCsWinRTNugetReference>true</SimulateCsWinRTNugetReference>
     <CsWinRTEmbedded>true</CsWinRTEmbedded>
     <CsWinRTWindowsMetadata>sdk</CsWinRTWindowsMetadata>
+    <CsWinRTGenerateProjection>true</CsWinRTGenerateProjection>
   </PropertyGroup>
 
   <ItemGroup>
