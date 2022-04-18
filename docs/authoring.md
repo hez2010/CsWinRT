@@ -72,12 +72,12 @@ To make your component available as a NuGet package, it is important to include 
             target="lib\$(TargetFramework)\WinRT.Runtime.dll" />
       
       <!-- Include the native DLLs -->
-      <file src="C:\Path\To\CsWinRT\NugetDir\runtimes\win-x64\native\WinRT.Host.dll"                                  
-            target="runtimes\win-x64\native\WinRT.Host.dll" />
-      <file src="C:\Path\To\CsWinRT\NugetDir\runtimes\win-x86\native\WinRT.Host.dll"                                  
-            target="runtimes\win-x86\native\WinRT.Host.dll" />
-      <file src="C:\Path\To\CsWinRT\NugetDir\runtimes\win-arm64\native\WinRT.Host.dll"                                  
-            target="runtimes\win-arm64\native\WinRT.Host.dll" />
+      <file src="C:\Path\To\CsWinRT\NugetDir\runtimes\win10-x64\native\WinRT.Host.dll"                                  
+            target="runtimes\win10-x64\native\WinRT.Host.dll" />
+      <file src="C:\Path\To\CsWinRT\NugetDir\runtimes\win10-x86\native\WinRT.Host.dll"                                  
+            target="runtimes\win10-x86\native\WinRT.Host.dll" />
+      <file src="C:\Path\To\CsWinRT\NugetDir\runtimes\win10-arm64\native\WinRT.Host.dll"                                  
+            target="runtimes\win10-arm64\native\WinRT.Host.dll" />
       
       </files>
       ```
